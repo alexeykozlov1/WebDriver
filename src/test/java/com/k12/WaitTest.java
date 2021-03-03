@@ -17,7 +17,7 @@ public class WaitTest {
 
         try {
             automatedBrowser.init();
-            automatedBrowser.goTo(FormTest.class.getResource("/form.html").toURI().toString());
+            automatedBrowser.goTo("https://ipublicmarketing.s3.amazonaws.com/form.html");
             automatedBrowser.clickElementWithId("newdiv_element");
         } finally {
             automatedBrowser.destroy();
@@ -31,7 +31,7 @@ public class WaitTest {
 
         try {
             automatedBrowser.init();
-            automatedBrowser.goTo(FormTest.class.getResource("/form.html").toURI().toString());
+            automatedBrowser.goTo("https://ipublicmarketing.s3.amazonaws.com/form.html");
             automatedBrowser.clickElementWithId("newdiv_element", 10);
 
         } finally {
@@ -47,7 +47,7 @@ public class WaitTest {
 
         try {
             automatedBrowser.init();
-            automatedBrowser.goTo(FormTest.class.getResource("/form.html").toURI().toString());
+            automatedBrowser.goTo("https://ipublicmarketing.s3.amazonaws.com/form.html");
             automatedBrowser.clickElementWithId("div3_element");
         } finally {
             automatedBrowser.destroy();
@@ -61,7 +61,7 @@ public class WaitTest {
 
         try {
             automatedBrowser.init();
-            automatedBrowser.goTo(FormTest.class.getResource("/form.html").toURI().toString());
+            automatedBrowser.goTo("https://ipublicmarketing.s3.amazonaws.com/form.html");
             automatedBrowser.clickElementWithId("div3_element", 10);
         } finally {
             automatedBrowser.destroy();
@@ -77,7 +77,7 @@ public class WaitTest {
 
         try {
             automatedBrowser.init();
-            automatedBrowser.goTo(WaitTest.class.getResource("/form.html").toURI().toString());
+            automatedBrowser.goTo("https://ipublicmarketing.s3.amazonaws.com/form.html");
             automatedBrowser.clickElementWithId("This ID does not exist", 1);
         } finally {
             automatedBrowser.destroy();
@@ -95,7 +95,7 @@ public class WaitTest {
 
         try {
             automatedBrowser.init();
-            automatedBrowser.goTo(WaitTest.class.getResource("/form.html").toURI().toString());
+            automatedBrowser.goTo("https://ipublicmarketing.s3.amazonaws.com/form.html");
             automatedBrowser.clickElementWithId("newdiv_element", 2);
         } finally {
             automatedBrowser.destroy();
@@ -111,7 +111,7 @@ public class WaitTest {
 
         try {
             automatedBrowser.init();
-            automatedBrowser.goTo(WaitTest.class.getResource("/form.html").toURI().toString());
+            automatedBrowser.goTo("https://ipublicmarketing.s3.amazonaws.com/form.html");
             automatedBrowser.clickElementWithId("newdiv_element", 2);
         } finally {
             automatedBrowser.destroy();
@@ -136,10 +136,10 @@ public class WaitTest {
         try {
             automatedBrowser.init();
 
-            automatedBrowser.goTo(FormTest.class.getResource("/form.html").toURI().toString());
+            automatedBrowser.goTo("https://ipublicmarketing.s3.amazonaws.com/form.html");
 
             automatedBrowser.clickElement(formButtonLocator, 10);
-            assertEquals("Button Clicked", automatedBrowser.getTextFromElement(messageLocator));
+            assertEquals("Button Mouse Over", automatedBrowser.getTextFromElement(messageLocator));
 
             automatedBrowser.populateElement(formTextBoxLocator, "test text", 10);
             assertEquals("Text Input Changed", automatedBrowser.getTextFromElement(messageLocator));
@@ -166,10 +166,10 @@ public class WaitTest {
         try {
             automatedBrowser.init();
 
-            automatedBrowser.goTo(FormTest.class.getResource("/form.html").toURI().toString());
+            automatedBrowser.goTo("https://ipublicmarketing.s3.amazonaws.com/form.html");
 
             automatedBrowser.clickElementWithId("button_element");
-            assertEquals("Button Clicked", automatedBrowser.getTextFromElementWithId("message"));
+            assertEquals("Button Mouse Over", automatedBrowser.getTextFromElementWithId("message"));
 
             automatedBrowser.populateElementWithId("text_element", "test text");
             assertEquals("Text Input Changed", automatedBrowser.getTextFromElementWithId("message"));
@@ -243,49 +243,50 @@ public class WaitTest {
         automatedBrowser.blockRequestTo(".*?\\.svg", 201);
         automatedBrowser.blockRequestTo("https://.*?twitter\\.com/", 500);
         automatedBrowser.goTo("https://octopus.com/");
+        automatedBrowser.destroy();
     }
 
-    @Test
-    public void mockRequests() throws URISyntaxException {
-        final AutomatedBrowser automatedBrowser = AUTOMATED_BROWSER_FACTORY.getAutomatedBrowser("Firefox");
-
-        try {
-            automatedBrowser.init();
-
-            automatedBrowser.alterResponseFrom(
-                    ".*?query\\.yahooapis\\.com.*",
-                    200,
-                    "{\"query\":{\"count\":1,\"created\":\"2020-04-28T05:20:30Z\",\"lang\":\"en-US\",\"results\":{\"channel\":{\"astronomy\":{\"sunset\":\"7:00 pm\"}}}}}");
-
-            automatedBrowser.goTo(FormTest.class.getResource("/apitest.html").toURI().toString());
-
-            final String sunset = automatedBrowser.getTextFromElementWithId("sunset", 60);
-            Assert.assertTrue(sunset, sunset.contains("7:00 pm"));
-        } finally {
+//    @Test
+//    public void mockRequests() throws URISyntaxException {
+//        final AutomatedBrowser automatedBrowser = AUTOMATED_BROWSER_FACTORY.getAutomatedBrowser("Firefox");
+//
+//        try {
+//            automatedBrowser.init();
+//
+//            automatedBrowser.alterResponseFrom(
+//                    ".*?query\\.yahooapis\\.com.*",
+//                    200,
+//                    "{\"query\":{\"count\":1,\"created\":\"2020-04-28T05:20:30Z\",\"lang\":\"en-US\",\"results\":{\"channel\":{\"astronomy\":{\"sunset\":\"7:00 pm\"}}}}}");
+//
+//            automatedBrowser.goTo(FormTest.class.getResource("/apitest.html").toURI().toString());
+//
+//            final String sunset = automatedBrowser.getTextFromElementWithId("sunset", 60);
+//            Assert.assertTrue(sunset, sunset.contains("7:00 pm"));
+//        } finally {
 //            automatedBrowser.destroy();
-        }
-    }
+//        }
+//    }
 
-    @Test
-    public void mockRequests2() throws URISyntaxException {
-        final AutomatedBrowser automatedBrowser = AUTOMATED_BROWSER_FACTORY.getAutomatedBrowser("Firefox");
-
-        try {
-            automatedBrowser.init();
-
-            automatedBrowser.alterResponseFrom(
-                    ".*?query\\.yahooapis\\.com.*",
-                    200,
-                    "{\"query\":{\"count\":1,\"created\":\"2018-04-28T05:20:30Z\",\"lang\":\"en-US\",\"results\":{\"channel\":{\"astronomy\":{\"sunset\":\"7:4 pm\"}}}}}");
-
-            automatedBrowser.goTo(FormTest.class.getResource("/apitest.html").toURI().toString());
-
-            final String sunset = automatedBrowser.getTextFromElementWithId("sunset", 60);
-            Assert.assertTrue(sunset, sunset.contains("7:4 pm"));
-        } finally {
-            automatedBrowser.destroy();
-        }
-    }
+//    @Test
+//    public void mockRequests2() throws URISyntaxException {
+//        final AutomatedBrowser automatedBrowser = AUTOMATED_BROWSER_FACTORY.getAutomatedBrowser("Firefox");
+//
+//        try {
+//            automatedBrowser.init();
+//
+//            automatedBrowser.alterResponseFrom(
+//                    ".*?query\\.yahooapis\\.com.*",
+//                    200,
+//                    "{\"query\":{\"count\":1,\"created\":\"2018-04-28T05:20:30Z\",\"lang\":\"en-US\",\"results\":{\"channel\":{\"astronomy\":{\"sunset\":\"7:4 pm\"}}}}}");
+//
+//            automatedBrowser.goTo(FormTest.class.getResource("/apitest.html").toURI().toString());
+//
+//            final String sunset = automatedBrowser.getTextFromElementWithId("sunset", 60);
+//            Assert.assertTrue(sunset, sunset.contains("7:4 pm"));
+//        } finally {
+//            automatedBrowser.destroy();
+//        }
+//    }
 
     @Test
     public void browserStackTest() {
