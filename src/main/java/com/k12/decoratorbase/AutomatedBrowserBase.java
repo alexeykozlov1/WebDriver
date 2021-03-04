@@ -1,11 +1,17 @@
 package com.k12.decoratorbase;
 
 import com.k12.AutomatedBrowser;
+import com.k12.AutomatedBrowserFactory;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class AutomatedBrowserBase implements AutomatedBrowser {
     private AutomatedBrowser automatedBrowser;
+
+    static private final AutomatedBrowserFactory AUTOMATED_BROWSER_FACTORY
+            = new AutomatedBrowserFactory();
 
     public AutomatedBrowserBase() {
     }
@@ -46,21 +52,21 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
             getAutomatedBrowser().destroy();
         }
     }
-
+    @And("^I open the URL \"([^\"]*)\"$")
     @Override
     public void goTo(String url) {
         if (getAutomatedBrowser() != null) {
             getAutomatedBrowser().goTo(url);
         }
     }
-
+    @And("^I click the \\w+(?:\\s+\\w+)* with the id \"([^\"]*)\"$")
     @Override
     public void clickElementWithId(final String id) {
         if (getAutomatedBrowser() != null) {
             getAutomatedBrowser().clickElementWithId(id);
         }
     }
-
+    @And("^I click the \\w+(?:\\s+\\w+)* with the id \"([^\"]*)\" waiting up to \"(\\d+)\" seconds?$")
     @Override
     public void clickElementWithId(final String id, final int waitTime) {
         if (getAutomatedBrowser() != null) {
@@ -68,6 +74,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I select the option \"([^\"]*)\" from the \\w+(?:\\s+\\w+)* with the id \"([^\"]*)\"$")
     @Override
     public void selectOptionByTextFromSelectWithId(final String optionText, final String id) {
         if (getAutomatedBrowser() != null) {
@@ -75,6 +82,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I select the option \"([^\"]*)\" from the \\w+(?:\\s+\\w+)* with the id \"([^\"]*)\" waiting up to \"(\\d+)\" seconds?$")
     @Override
     public void selectOptionByTextFromSelectWithId(final String optionText, final String id, final int waitTime) {
         if (getAutomatedBrowser() != null) {
@@ -82,6 +90,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I populate the \\w+(?:\\s+\\w+)* with the id \"([^\"]*)\" with the text \"([^\"]*)\"$")
     @Override
     public void populateElementWithId(final String id, final String text) {
         if (getAutomatedBrowser() != null) {
@@ -89,6 +98,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I populate the \\w+(?:\\s+\\w+)* with the id \"([^\"]*)\" with the text \"([^\"]*)\" waiting up to \"(\\d+)\" seconds?$")
     @Override
     public void populateElementWithId(final String id, final String text, final int waitTime) {
         if (getAutomatedBrowser() != null) {
@@ -112,6 +122,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         return null;
     }
 
+    @And("^I click the \\w+(?:\\s+\\w+)* with the xpath \"([^\"]*)\"$")
     @Override
     public void clickElementWithXPath(final String xpath) {
         if (getAutomatedBrowser() != null) {
@@ -119,6 +130,25 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I click the \\w+(?:\\s+\\w+)* with the name \"([^\"]*)\"$")
+    @Override
+    public void clickElementWithName(final String name) {
+        if (getAutomatedBrowser() != null) {
+            getAutomatedBrowser().clickElementWithName(name);
+        }
+    }
+
+    @And("^I click the \\w+(?:\\s+\\w+)* with the name \"([^\"]*)\" waiting up to \"(\\d+)\" seconds?$")
+    @Override
+    public void clickElementWithName(final String name, final int waitTime) {
+        if (getAutomatedBrowser() != null) {
+            getAutomatedBrowser().clickElementWithName(name, waitTime);
+        }
+    }
+
+
+
+    @And("^I click the \\w+(?:\\s+\\w+)* with the xpath \"([^\"]*)\" waiting up to \"(\\d+)\" seconds?$")
     @Override
     public void clickElementWithXPath(final String xpath, final int waitTime) {
         if (getAutomatedBrowser() != null) {
@@ -126,6 +156,23 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I select the option \"([^\"]*)\" from the \\w+(?:\\s+\\w+)* with the name \"([^\"]*)\"$")
+    @Override
+    public void selectOptionByTextFromSelectWithName(final String optionText, final String name) {
+        if (getAutomatedBrowser() != null) {
+            getAutomatedBrowser().selectOptionByTextFromSelectWithName(optionText, name);
+        }
+    }
+
+    @And("^I select the option \"([^\"]*)\" from the \\w+(?:\\s+\\w+)* with the name \"([^\"]*)\" waiting up to \"(\\d+)\" seconds?$")
+    @Override
+    public void selectOptionByTextFromSelectWithName(final String optionText, final String name, final int waitTime) {
+        if (getAutomatedBrowser() != null) {
+            getAutomatedBrowser().selectOptionByTextFromSelectWithName(optionText, name, waitTime);
+        }
+    }
+
+    @And("^I select the option \"([^\"]*)\" from the \\w+(?:\\s+\\w+)* with the xpath \"([^\"]*)\"$")
     @Override
     public void selectOptionByTextFromSelectWithXPath(final String optionText, final String xpath) {
         if (getAutomatedBrowser() != null) {
@@ -133,6 +180,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I select the option \"([^\"]*)\" from the \\w+(?:\\s+\\w+)* with the xpath \"([^\"]*)\" waiting up to \"(\\d+)\" seconds?$")
     @Override
     public void selectOptionByTextFromSelectWithXPath(final String optionText, final String xpath, final int waitTime) {
         if (getAutomatedBrowser() != null) {
@@ -140,6 +188,25 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I populate the \\w+(?:\\s+\\w+)* with the name \"([^\"]*)\" with the text \"([^\"]*)\"$")
+    @Override
+    public void populateElementWithName(final String name, final String
+            text) {
+        if (getAutomatedBrowser() != null) {
+            getAutomatedBrowser().populateElementWithName(name, text);
+        }
+    }
+
+    @And("^I populate the \\w+(?:\\s+\\w+)* with the name \"([^\"]*)\" with the text \"([^\"]*)\" waiting up to \"(\\d+)\" seconds?$")
+    @Override
+    public void populateElementWithName(final String name, final String text, final int waitTime) {
+        if (getAutomatedBrowser() != null) {
+            getAutomatedBrowser().populateElementWithName(name, text, waitTime);
+        }
+    }
+
+
+    @And("^I populate the \\w+(?:\\s+\\w+)* with the xpath \"([^\"]*)\" with the text \"([^\"]*)\"$")
     @Override
     public void populateElementWithXPath(final String xpath, final String
             text) {
@@ -148,6 +215,8 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+
+    @And("^I populate the \\w+(?:\\s+\\w+)* with the xpath \"([^\"]*)\" with the text \"([^\"]*)\" waiting up to \"(\\d+)\" seconds?$")
     @Override
     public void populateElementWithXPath(final String xpath, final String text, final int waitTime) {
         if (getAutomatedBrowser() != null) {
@@ -172,6 +241,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         return null;
     }
 
+    @And("^I click the \\w+(?:\\s+\\w+)* with the css selector \"([^\"]*)\"$")
     @Override
     public void clickElementWithCSSSelector(final String cssSelector) {
         if (getAutomatedBrowser() != null) {
@@ -179,6 +249,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I click the \\w+(?:\\s+\\w+)* with the css selector \"([^\"]*)\" waiting up to \"(\\d+)\" seconds?$")
     @Override
     public void clickElementWithCSSSelector(final String cssSelector, final
     int waitTime) {
@@ -187,6 +258,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I select the option \"([^\"]*)\" from the \\w+(?:\\s+\\w+)* with the css selector \"([^\"]*)\"$")
     @Override
     public void selectOptionByTextFromSelectWithCSSSelector(final String optionText, final String cssSelector) {
         if (getAutomatedBrowser() != null) {
@@ -195,6 +267,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I select the option \"([^\"]*)\" from the \\w+(?:\\s+\\w+)* with the css selector \"([^\"]*)\" waiting up to \"(\\d+)\" seconds?$")
     @Override
     public void selectOptionByTextFromSelectWithCSSSelector(final String optionText, final String cssSelector, final int waitTime) {
         if (getAutomatedBrowser() != null) {
@@ -203,6 +276,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I populate the \\w+(?:\\s+\\w+)* with the css selector \"([^\"]*)\" with the text \"([^\"]*)\"$")
     @Override
     public void populateElementWithCSSSelector(final String cssSelector, final String text) {
         if (getAutomatedBrowser() != null) {
@@ -210,12 +284,14 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I populate the \\w+(?:\\s+\\w+)* with the css selector \"([^\"]*)\" with the text \"([^\"]*)\" waiting up to \"(\\d+)\" seconds?$")
     @Override
     public void populateElementWithCSSSelector(final String cssSelector, final String text, final int waitTime) {
         if (getAutomatedBrowser() != null) {
             getAutomatedBrowser().populateElementWithCSSSelector(cssSelector, text, waitTime);
         }
     }
+
 
     @Override
     public String getTextFromElementWithCSSSelector(final String cssSelector) {
@@ -233,6 +309,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         return null;
     }
 
+    @And("^I click the \"([^\"]*)\" \\w+(?:\\s+\\w+)*$")
     @Override
     public void clickElement(final String locator) {
         if (getAutomatedBrowser() != null) {
@@ -240,6 +317,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I click the \"([^\"]*)\" \\w+(?:\\s+\\w+)* waiting up to \"(\\d+)\" seconds?$")
     @Override
     public void clickElement(final String locator, final int waitTime) {
         if (getAutomatedBrowser() != null) {
@@ -247,6 +325,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I select the option \"([^\"]*)\" from the \"([^\"]*)\" \\w+(?:\\s+\\w+)*$")
     @Override
     public void selectOptionByTextFromSelect(final String optionText, final String locator) {
         if (getAutomatedBrowser() != null) {
@@ -254,6 +333,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I select the option \"([^\"]*)\" from the \"([^\"]*)\" \\w+(?:\\s+\\w+)* waiting up to \"(\\d+)\" seconds?$")
     @Override
     public void selectOptionByTextFromSelect(final String optionText, final String locator, final int waitTime) {
         if (getAutomatedBrowser() != null) {
@@ -261,6 +341,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I populate the \"([^\"]*)\" \\w+(?:\\s+\\w+)* with the text \"([^\"]*)\"$")
     @Override
     public void populateElement(final String locator, final String text) {
         if (getAutomatedBrowser() != null) {
@@ -268,6 +349,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I populate the \"([^\"]*)\" \\w+(?:\\s+\\w+)* with the text \"([^\"]*)\" waiting up to \"(\\d+)\" seconds?$")
     @Override
     public void populateElement(final String locator, final String text, final int waitTime) {
         if (getAutomatedBrowser() != null) {
@@ -290,6 +372,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
         return null;
     }
+
     @Override
     public DesiredCapabilities getDesiredCapabilities() {
         if (getAutomatedBrowser() != null) {
@@ -298,6 +381,8 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
 
         return new DesiredCapabilities();
     }
+
+    @And("^I capture the HAR file$")
     @Override
     public void captureHarFile() {
         if (getAutomatedBrowser() != null) {
@@ -305,6 +390,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I save the HAR file to \"([^\"]*)\"$")
     @Override
     public void saveHarFile(final String file) {
         if (getAutomatedBrowser() != null) {
@@ -312,6 +398,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I capture the complete HAR file$")
     @Override
     public void captureCompleteHarFile() {
         if (getAutomatedBrowser() != null) {
@@ -319,6 +406,7 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I block the request to \"([^\"]*)\" returning the HTTP code \"\\d+\"$")
     @Override
     public void blockRequestTo(final String url, final int responseCode) {
         if (getAutomatedBrowser() != null) {
@@ -326,16 +414,36 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
     }
 
+    @And("^I alter the response fron \"([^\"]*)\" returning the HTTP code \"\\d+\" and the response body:$")
     @Override
     public void alterResponseFrom(final String url, final int responseCode, final String responseBody) {
         if (getAutomatedBrowser() != null) {
             getAutomatedBrowser().alterResponseFrom(url, responseCode, responseBody);
         }
     }
+
+    @And("^I maximize the window$")
     @Override
     public void maximizeWindow() {
         if (getAutomatedBrowser() != null) {
             getAutomatedBrowser().maximizeWindow();
         }
     }
+
+    @Given("^I open the browser \"([^\"]*)\"$")
+    public void openBrowser(String browser) {
+        automatedBrowser =
+                AUTOMATED_BROWSER_FACTORY.getAutomatedBrowser(browser);
+        automatedBrowser.init();
+    }
+
+    @Given("^I close the browser$")
+    public void closeBrowser() {
+        if (automatedBrowser != null) {
+            automatedBrowser.destroy();
+            automatedBrowser = null;
+        }
+    }
+
+
 }

@@ -100,6 +100,21 @@ public class WebDriverDecorator extends AutomatedBrowserBase {
     }
 
     @Override
+    public void clickElementWithName(final String name) {
+        webDriver.findElement(By.name(name)).click();
+    }
+
+    @Override
+    public void clickElementWithName(final String name, final int waitTime) {
+        if (waitTime <= 0) {
+            clickElementWithName(name);
+        } else {
+            final WebDriverWait wait = new WebDriverWait(webDriver, waitTime);
+            wait.until(ExpectedConditions.elementToBeClickable(By.name(name))).click();
+        }
+    }
+
+    @Override
     public void clickElementWithXPath(final String xpath) {
         webDriver.findElement(By.xpath(xpath)).click();
     }
@@ -111,6 +126,21 @@ public class WebDriverDecorator extends AutomatedBrowserBase {
         } else {
             final WebDriverWait wait = new WebDriverWait(webDriver, waitTime);
             wait.until(ExpectedConditions.elementToBeClickable((By.xpath(xpath)))).click();
+        }
+    }
+
+    @Override
+    public void selectOptionByTextFromSelectWithName(final String optionText, final String name) {
+        new Select(webDriver.findElement(By.name(name))).selectByVisibleText(optionText);
+    }
+
+    @Override
+    public void selectOptionByTextFromSelectWithName(final String optionText, final String name, final int waitTime) {
+        if (waitTime <= 0) {
+            selectOptionByTextFromSelectWithName(name, optionText);
+        } else {
+            final WebDriverWait wait = new WebDriverWait(webDriver, waitTime);
+            new Select(wait.until(ExpectedConditions.elementToBeClickable(By.name(name)))).selectByVisibleText(optionText);
         }
     }
 
@@ -127,6 +157,23 @@ public class WebDriverDecorator extends AutomatedBrowserBase {
         } else {
             final WebDriverWait wait = new WebDriverWait(webDriver, waitTime);
             new Select(wait.until(ExpectedConditions.elementToBeClickable((By.xpath(xpath))))).selectByVisibleText(optionText);
+        }
+    }
+
+    @Override
+    public void populateElementWithName(final String name, final String
+            text) {
+        webDriver.findElement(By.name(name)).sendKeys(text);
+    }
+
+    @Override
+    public void populateElementWithName(final String name, final String
+            text, final int waitTime) {
+        if (waitTime <= 0) {
+            populateElementWithName(name, text);
+        } else {
+            final WebDriverWait wait = new WebDriverWait(webDriver, waitTime);
+            wait.until(ExpectedConditions.elementToBeClickable((By.name(name)))).sendKeys(text);
         }
     }
 
