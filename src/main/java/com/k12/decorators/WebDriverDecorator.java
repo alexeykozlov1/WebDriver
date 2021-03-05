@@ -11,9 +11,16 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WebDriverDecorator extends AutomatedBrowserBase {
     private WebDriver webDriver;
+    private int defaultExplicitWaitTime;
 
     public WebDriverDecorator() {
     }
+
+    @Override
+    public void setDefaultExplicitWaitTime(final int waitTime) {
+        defaultExplicitWaitTime = waitTime;
+    }
+
 
     @Override
     public WebDriver getWebDriver() {
@@ -39,7 +46,11 @@ public class WebDriverDecorator extends AutomatedBrowserBase {
 
     @Override
     public void clickElementWithId(final String id) {
-        webDriver.findElement(By.id(id)).click();
+        if (defaultExplicitWaitTime <= 0) {
+            webDriver.findElement(By.id(id)).click();
+        } else {
+            clickElementWithId(id, defaultExplicitWaitTime);
+        }
     }
 
     @Override
@@ -275,7 +286,7 @@ public class WebDriverDecorator extends AutomatedBrowserBase {
 
     @Override
     public void clickElement(final String locator) {
-        clickElement(locator, 0);
+        clickElement(locator, defaultExplicitWaitTime);
     }
 
     @Override
@@ -290,7 +301,7 @@ public class WebDriverDecorator extends AutomatedBrowserBase {
 
     @Override
     public void selectOptionByTextFromSelect(final String optionText, final String locator) {
-        selectOptionByTextFromSelect(optionText, locator, 0);
+        selectOptionByTextFromSelect(optionText, locator, defaultExplicitWaitTime);
     }
 
     @Override
@@ -305,7 +316,7 @@ public class WebDriverDecorator extends AutomatedBrowserBase {
 
     @Override
     public void populateElement(final String locator, final String text) {
-        populateElement(locator, text, 0);
+        populateElement(locator, text, defaultExplicitWaitTime);
     }
 
     @Override
@@ -320,7 +331,7 @@ public class WebDriverDecorator extends AutomatedBrowserBase {
 
     @Override
     public String getTextFromElement(final String locator) {
-        return getTextFromElement(locator, 0);
+        return getTextFromElement(locator, defaultExplicitWaitTime);
     }
 
     @Override

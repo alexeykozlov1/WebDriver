@@ -55,6 +55,8 @@ public interface AutomatedBrowser {
 
     void populateElementWithXPath(String xpath, String text, int waitTime);
 
+    void setDefaultExplicitWaitTime(int waitTime);
+
     String getTextFromElementWithXPath(String xpath);
 
     String getTextFromElementWithXPath(String xpath, int waitTime);
