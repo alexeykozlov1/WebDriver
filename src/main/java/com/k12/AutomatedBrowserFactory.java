@@ -6,6 +6,11 @@ public class AutomatedBrowserFactory {
 
     public AutomatedBrowser getAutomatedBrowser(final String browser) {
 
+        if ("ChromeNoImplicitWaitLambda".equalsIgnoreCase(browser)) {
+            return getChromeBrowserNoImplicitWaitLambda();
+        }
+
+
         if ("Chrome".equalsIgnoreCase(browser)) {
             return getChromeBrowser(false);
         }
@@ -48,6 +53,14 @@ public class AutomatedBrowserFactory {
         throw new IllegalArgumentException("Unknown browser " + browser);
 
     }
+
+
+    private AutomatedBrowser getChromeBrowserNoImplicitWaitLambda() {
+        return new ChromeHeadlessLambdaDecorator(
+                new WebDriverDecorator()
+        );
+    }
+
     private AutomatedBrowser getBrowserStackAndroid() {
         return new BrowserStackDecorator(
                 new BrowserStackAndroidDecorator(
